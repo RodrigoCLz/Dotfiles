@@ -29,6 +29,9 @@ def powerline(fg="light", bg="dark"):
         fontsize=37,
         padding=-3,
     )
+# Convertir a GB
+def bytes_to_gb(bytes):
+        return round(bytes / 1024 / 1024 / 1024, 2)
 
 def get_network_status():
     def is_interface_up(interface):
@@ -54,10 +57,7 @@ def get_network_status():
     except Exception as e:
         return f"{icon} Error: {str(e)}"
 
-    # Convertir a GB
-    def bytes_to_gb(bytes):
-        return round(bytes / 1024 / 1024 / 1024, 2)
-
+    
     return f"{icon} {bytes_to_gb(down)}GB ↓↑ {bytes_to_gb(up)}GB"
 
 def workspaces(): 
@@ -115,6 +115,14 @@ primary_widgets = [
         **base(bg="color3"),
         format=" {load_percent}%",
     ),
+    icon(bg="color3", fontsize=17, text=" "),
+    
+    widget.Memory(
+        **base(bg="color3"),
+        format="{MemUsed:.2f}/{MemTotal:.2f}MB",
+        measure_mem="G",
+        update_interval=1.0,
+    ),
 
     powerline('color6', 'color3'),
 
@@ -133,7 +141,6 @@ primary_widgets = [
         func=get_network_status,
         update_interval=2,  # Actualiza cada 2 segundos
     ),
-
     powerline('urgent', 'color9'),
 
     widget.CurrentLayoutIcon(
