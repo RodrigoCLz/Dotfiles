@@ -1,6 +1,6 @@
 from libqtile import widget
 from .theme import colors
-import subprocess
+import subprocess, re
 # Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
 
 def base(fg='text', bg='dark'): 
@@ -29,7 +29,6 @@ def powerline(fg="light", bg="dark"):
         fontsize=37,
         padding=-3,
     )
-# Convertir a GB
 def bytes_to_gb(bytes):
         return round(bytes / 1024 / 1024 / 1024, 2)
 
@@ -44,11 +43,10 @@ def get_network_status():
         icon = "󰈀"  # Ethernet
     elif is_interface_up("wlo1"):
         interface = "wlo1"
-        icon = "󰖩"  # Wi-Fi
+        icon = "󰖩"  
     else:
         return "󰲛"
 
-    # Obtener tráfico en MB
     try:
         with open(f"/sys/class/net/{interface}/statistics/rx_bytes", "r") as f:
             down = int(f.read().strip())
@@ -59,6 +57,73 @@ def get_network_status():
 
     
     return f"{icon} {bytes_to_gb(down)}GB ↓↑ {bytes_to_gb(up)}GB"
+
+def get_brightness_status():
+    with open('/sys/class/backlight/intel_backlight/brightness', 'r') as f:
+        current_brightness = int(f.read().strip())
+    with open('/sys/class/backlight/intel_backlight/max_brightness', 'r') as f:
+        max_brightness = int(f.read().strip())
+    percent = int((current_brightness/max_brightness)*100) 
+    if percent >= 0 and percent <= 20:
+        icon = '󰃞'
+    elif percent <= 60:
+        icon = '󰃟'
+    elif percent <=100:
+        icon = '󰃠'
+        
+    return f'{icon} {percent}%' 
+
+def get_volume_status():
+    try:
+        default_audio_device = subprocess.check_output(
+            "pactl get-default-sink",
+            shell=True,
+            text=True,
+        ).strip()
+        
+        volume_info = subprocess.check_output(
+            f"pactl get-sink-volume {default_audio_device}",
+            shell=True,
+            text=True
+        )
+        volume_percent = int(re.search(r'(\d+)%', volume_info).group(1))
+        
+        mute_status = subprocess.check_output(
+            f"pactl get-sink-mute {default_audio_device}",
+            shell=True,
+            text=True,
+        ).strip()
+        is_muted = "yes" in mute_status or volume_percent == 0
+
+        device_info = subprocess.check_output(
+            f"pactl list sinks | grep -A10 '{default_audio_device}' | grep 'Description'",
+            shell=True,
+            text=True,
+        ).lower()
+        
+        if "speaker" in device_info:
+            device_icons = {
+                "muted" : "",
+                "volume_low" : "",
+                "volume_full" : ""
+            }
+        else :
+            device_icons = {
+                "muted" : "󰟎",
+                "volume_low" : "󰋋",
+                "volume_full" : "󰋋"
+            } 
+            
+        if is_muted:
+            icon = device_icons["muted"]
+        elif volume_percent <= 50:
+            icon = device_icons["volume_low"]
+        elif volume_percent <= 100:
+            icon = device_icons["volume_full"] 
+            
+    except Exception as e:
+        return "Error"
+    return  f"{icon} {volume_percent}%" 
 
 def workspaces(): 
     return [
@@ -139,21 +204,33 @@ primary_widgets = [
     widget.GenPollText(
         **base(bg='color9'),
         func=get_network_status,
-        update_interval=2,  # Actualiza cada 2 segundos
+        update_interval=1, 
     ),
+    
     powerline('urgent', 'color9'),
-
-    widget.CurrentLayoutIcon(
+    
+    # control de brillo 
+    widget.GenPollText(
         **base(bg='urgent'),
-        scale=0.7),
-
+        func=get_brightness_status,
+        update_interval=0.5,
+    ),
+    
+    powerline('urgent', 'urgent'),
+    
+    # control de audio
+    widget.GenPollText(
+        **base(bg='urgent'),
+        func=get_volume_status,
+        update_interval=0.5,
+    ),
     powerline('color2', 'urgent'),
 
-    icon(bg="color2", fontsize=17, text='󰃰'), # Icon: nf-mdi-calendar_clock
+    icon(bg="color2", fontsize=17, text='󰃰'), 
 
     widget.Clock(
         **base(bg='color2'), 
-        format='%d/%m/%Y - %H:%M'),
+        format='%d/%m/%Y  %H:%M'),
 
     powerline('color10', 'color2'),
 
