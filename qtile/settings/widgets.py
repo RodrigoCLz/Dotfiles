@@ -236,6 +236,12 @@ primary_widgets = [
 
     powerline('color10', 'color2'),
 
+    widget.Battery(
+        **base(bg='color10'),  
+        format='{percent:2.0%}', 
+        update_interval=5,      
+        show_short_text=True    
+    ),
     widget.Systray(
         background=colors['color10'], 
         padding=5),
