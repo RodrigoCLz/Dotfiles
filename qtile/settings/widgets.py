@@ -125,7 +125,7 @@ def get_volume_status():
         return "Error"
     return  f"{icon} {volume_percent}%" 
 
-def workspaces(): 
+def workspaces(primary=True): 
     return [
         separator(),
         widget.GroupBox(
@@ -147,7 +147,9 @@ def workspaces():
             this_screen_border=colors['grey'],
             other_current_screen_border=colors['dark'],
             other_screen_border=colors['dark'],
-            disable_drag=True
+            disable_drag=True,
+            block_highlight_text_color = colors['urgent'],
+            hide_unused = False,
         ),
         separator(),
         widget.WindowName(**base(fg='color5'), fontsize=14, padding=5),
@@ -156,7 +158,7 @@ def workspaces():
 
 
 primary_widgets = [
-    *workspaces(),
+    *workspaces(primary=True),
 
     separator(),
 
@@ -240,21 +242,41 @@ primary_widgets = [
 ]
 
 secondary_widgets = [
-    *workspaces(),
+    *workspaces(primary=False),
 
     separator(),
 
-    powerline('color1', 'dark'),
+    powerline('color9', 'dark'),
 
-    widget.CurrentLayoutIcon(**base(bg='color1'), scale=0.65),
+    widget.GenPollText(
+        **base(bg='color9'),
+        func=get_network_status,
+        update_interval=1, 
+    ),
+    
+    powerline('urgent', 'color9'),
+    
+    widget.GenPollText(
+        **base(bg='urgent'),
+        func=get_brightness_status,
+        update_interval=0.5,
+    ),
+    
+    powerline('urgent', 'urgent'),
+    
+    widget.GenPollText(
+        **base(bg='urgent'),
+        func=get_volume_status,
+        update_interval=0.5,
+    ),
+    powerline('color2', 'urgent'),
 
-    widget.CurrentLayout(**base(bg='color1'), padding=5),
+    icon(bg="color2", fontsize=17, text='󰃰'),
+     
+    widget.Clock(
+        **base(bg='color2'), 
+        format='%d/%m/%Y  %H:%M'),
 
-    powerline('color2', 'color1'),
-
-    widget.Clock(**base(bg='color2'), format='%d/%m/%Y - %H:%M '),
-
-    powerline('dark', 'color2'),
 ]
 
 widget_defaults = {
