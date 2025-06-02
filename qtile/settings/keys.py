@@ -45,7 +45,9 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Switch focus of monitors
     ([mod], "period", lazy.next_screen()),
     ([mod], "comma", lazy.prev_screen()),
-
+    ([mod, "control"], "period", lazy.group.toscreen(1)),
+    ([mod, "control"], "comma", lazy.group.toscreen(0)),
+    
     # Restart Qtile
     ([mod, "control"], "r", lazy.restart()),
 

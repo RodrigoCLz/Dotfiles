@@ -35,4 +35,4 @@ else:
 
 if connected_monitors > 1:
     for _ in range(1, connected_monitors):
-        screens.append(Screen(top=status_bar(secondary_widgets)))
+        screens.append(Screen(top=status_bar(primary_widgets)))
