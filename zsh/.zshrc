@@ -125,7 +125,10 @@ function rmk(){
 	shred -zun 10 -v $1
 }
 function code(){
-  command code "$@" 2>/dev/null & disown 
+    command code "$@" 2>/dev/null & disown 
+}
+function setWallpaper(){
+    command feh --bg-scale $1
 }
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
 (( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
