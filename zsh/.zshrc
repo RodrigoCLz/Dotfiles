@@ -59,7 +59,8 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 alias cat='bat'
-
+alias vim='nvim'
+alias wireshark='QT_STYLE_OVERRIDE=kvantum wireshark'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Plugins
