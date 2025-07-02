@@ -1,6 +1,6 @@
 # Fix the Java Problem
 export _JAVA_AWT_WM_NONREPARENTING=1
-
+export EDITOR=nvim
 # Enable Powerlevel10k instant prompt. Should stay at the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -64,8 +64,8 @@ alias wireshark='QT_STYLE_OVERRIDE=kvantum wireshark'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Plugins
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-sudo/sudo.plugin.zsh
 
 # Functions
@@ -133,7 +133,7 @@ function setWallpaper(){
     command feh --bg-scale $1
 }
 
-functio fcpy() {
+function fcpy() {
   if [[ "$#" -eq 0 ]]; then
     echo "|--- Clipboard << archivo1 [archivo2 ...]"
     return 1
@@ -150,7 +150,7 @@ functio fcpy() {
   echo "|--- ✅ Archivos copiados"
 }
 
-cpy() {
+function cpy() {
   if [[ -z "$1" ]]; then
     echo "|--- cpy \"texto a copiar\""
     return 1
@@ -160,6 +160,41 @@ cpy() {
   echo "|--- ✅ Texto copiado"
 }
 
+# Mostrar las últimas noticias de Arch Linux antes de actualizar
+function arch_news_check() {
+    echo "🔔 Latest Arch Linux news:"
+    curl -s https://archlinux.org/news/ \
+      | grep -Eo 'href="/news/[^"]+"' \
+      | cut -d'"' -f2 \
+      | head -n 5 \
+      | sed 's|^|https://archlinux.org|'
+
+    echo
+    read -p "Do you want to continue with the system upgrade? [y/N] " answer
+    if [[ "$answer" =~ ^[yY]$ ]]; then
+        sudo pacman -Syu
+    else
+        echo "⏹️ Upgrade cancelled."
+    fi
+}
+
+function brave-man() {
+  if [ -f ~/.brave-keys ]; then
+    # colores
+    local bold=$'\033[1m'
+    local blue=$'\033[34m'
+    local yellow=$'\033[33m'
+    local green=$'\033[32m'
+    local reset=$'\033[0m'
+
+    # Procesar el archivo para añadir colores
+    sed -E "s/(^===.*===)/${bold}${blue}\1${reset}/g; \
+             s/(^===.*:)/${bold}${yellow}\1${reset}/g; \
+             s/(⌃|⌥|⇧|⌘|[^ ]+ \+ [^ ]+)/${green}&${reset}/g" ~/.brave-keys
+  else
+    echo "Archivo ~/.brave-keys no encontrado. Crea uno con los atajos."
+  fi
+}
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
 (( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
