@@ -43,7 +43,7 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source /home/rodrigo/.powerlevel10k/powerlevel10k.zsh-theme
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
@@ -125,12 +125,41 @@ function rmk(){
 	scrub -p dod $1
 	shred -zun 10 -v $1
 }
+
 function code(){
     command code "$@" 2>/dev/null & disown 
 }
 function setWallpaper(){
     command feh --bg-scale $1
 }
+
+functio fcpy() {
+  if [[ "$#" -eq 0 ]]; then
+    echo "|--- Clipboard << archivo1 [archivo2 ...]"
+    return 1
+  fi
+
+  for f in "$@"; do
+    if [[ ! -e "$f" ]]; then
+      echo "❌ Archivos no encontrado: $f" >&2
+      continue
+    fi
+    echo "file://$(realpath "$f")"
+  done | xclip -selection clipboard -t text/uri-list
+
+  echo "|--- ✅ Archivos copiados"
+}
+
+cpy() {
+  if [[ -z "$1" ]]; then
+    echo "|--- cpy \"texto a copiar\""
+    return 1
+  fi
+
+  printf "%s" "$*" | xclip -selection clipboard
+  echo "|--- ✅ Texto copiado"
+}
+
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
 (( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
