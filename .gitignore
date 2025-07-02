@@ -1,1 +1,3 @@
-qtile/settings/__pycache__/
+# Ignore Python cache
+__pycache__/
+*.py[cod]
