@@ -42,7 +42,7 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+  zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -70,24 +70,24 @@ source /usr/share/zsh-sudo/sudo.plugin.zsh
 
 # Functions
 function mkt(){
-	mkdir {nmap,content,exploits,scripts}
+  mkdir {nmap,content,exploits,scripts}
 }
 
 # Extract nmap information
 function extractPorts(){
-	ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
-	ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
-	echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
-	echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
-	echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
-	echo $ports | tr -d '\n' | xclip -sel clip
-	echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
-	cat extractPorts.tmp; rm extractPorts.tmp
+  ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
+  ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
+  echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
+  echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
+  echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
+  echo $ports | tr -d '\n' | xclip -sel clip
+  echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
+  cat extractPorts.tmp; rm extractPorts.tmp
 }
 
 # Set 'man' colors
 function man() {
-    env \
+  env \
     LESS_TERMCAP_mb=$'\e[01;31m' \
     LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \
@@ -96,41 +96,41 @@ function man() {
     LESS_TERMCAP_ue=$'\e[0m' \
     LESS_TERMCAP_us=$'\e[01;32m' \
     man "$@"
-}
+  }
 
 # fzf improvement
 function fzf-lovely(){
 
-	if [ "$1" = "h" ]; then
-		fzf -m --reverse --preview-window down:20 --preview '[[ $(file --mime {}) =~ binary ]] &&
- 	                echo {} is a binary file ||
-	                 (bat --style=numbers --color=always {} ||
-	                  highlight -O ansi -l {} ||
-	                  coderay {} ||
-	                  rougify {} ||
-	                  cat {}) 2> /dev/null | head -500'
+  if [ "$1" = "h" ]; then
+    fzf -m --reverse --preview-window down:20 --preview '[[ $(file --mime {}) =~ binary ]] &&
+      echo {} is a binary file ||
+      (bat --style=numbers --color=always {} ||
+      highlight -O ansi -l {} ||
+      coderay {} ||
+      rougify {} ||
+      cat {}) 2> /dev/null | head -500'
 
-	else
-	        fzf -m --preview '[[ $(file --mime {}) =~ binary ]] &&
-	                         echo {} is a binary file ||
-	                         (bat --style=numbers --color=always {} ||
-	                          highlight -O ansi -l {} ||
-	                          coderay {} ||
-	                          rougify {} ||
-	                          cat {}) 2> /dev/null | head -500'
-	fi
+  else
+    fzf -m --preview '[[ $(file --mime {}) =~ binary ]] &&
+      echo {} is a binary file ||
+      (bat --style=numbers --color=always {} ||
+      highlight -O ansi -l {} ||
+      coderay {} ||
+      rougify {} ||
+      cat {}) 2> /dev/null | head -500'
+  fi
 }
 
 function rmk(){
-	scrub -p dod $1
-	shred -zun 10 -v $1
+  scrub -p dod $1
+  shred -zun 10 -v $1
 }
 
 function code(){
-    command code "$@" 2>/dev/null & disown 
+  command code "$@" 2>/dev/null & disown 
 }
 function setWallpaper(){
-    command feh --bg-scale $1
+  command feh --bg-scale $1
 }
 
 function fcpy() {
@@ -162,20 +162,20 @@ function cpy() {
 
 # Mostrar las últimas noticias de Arch Linux antes de actualizar
 function arch_news_check() {
-    echo "🔔 Latest Arch Linux news:"
-    curl -s https://archlinux.org/news/ \
-      | grep -Eo 'href="/news/[^"]+"' \
-      | cut -d'"' -f2 \
-      | head -n 5 \
-      | sed 's|^|https://archlinux.org|'
+  echo "🔔 Latest Arch Linux news:"
+  curl -s https://archlinux.org/news/ \
+    | grep -Eo 'href="/news/[^"]+"' \
+    | cut -d'"' -f2 \
+    | head -n 5 \
+    | sed 's|^|https://archlinux.org|'
 
-    echo
-    read -p "Do you want to continue with the system upgrade? [y/N] " answer
-    if [[ "$answer" =~ ^[yY]$ ]]; then
-        sudo pacman -Syu
-    else
-        echo "⏹️ Upgrade cancelled."
-    fi
+  echo
+  read -p "Do you want to continue with the system upgrade? [y/N] " answer
+  if [[ "$answer" =~ ^[yY]$ ]]; then
+    sudo pacman -Syu
+  else
+    echo "⏹️ Upgrade cancelled."
+  fi
 }
 
 function brave-man() {
@@ -189,8 +189,8 @@ function brave-man() {
 
     # Procesar el archivo para añadir colores
     sed -E "s/(^===.*===)/${bold}${blue}\1${reset}/g; \
-             s/(^===.*:)/${bold}${yellow}\1${reset}/g; \
-             s/(⌃|⌥|⇧|⌘|[^ ]+ \+ [^ ]+)/${green}&${reset}/g" ~/.brave-keys
+      s/(^===.*:)/${bold}${yellow}\1${reset}/g; \
+      s/(⌃|⌥|⇧|⌘|[^ ]+ \+ [^ ]+)/${green}&${reset}/g" ~/.brave-keys
   else
     echo "Archivo ~/.brave-keys no encontrado. Crea uno con los atajos."
   fi
