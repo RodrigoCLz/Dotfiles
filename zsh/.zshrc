@@ -204,3 +204,6 @@ bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
 
 PATH=~/.console-ninja/.bin:$PATH
+
+# Set fnm
+eval "$(fnm env)"
