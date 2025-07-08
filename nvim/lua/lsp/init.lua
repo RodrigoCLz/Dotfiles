@@ -29,14 +29,27 @@ return {
         require("lsp.mappings").keys_on_attach()
       end
 
-      require("lsp.languages.lua").lua_ls_config(on_attach_config)
-      require("lsp.languages.python").pyright_config(on_attach_config)
-      require("lsp.languages.java").jdtls(on_attach_config)
-      require("lsp.languages.bash").bashls(on_attach_config)
-      require("lsp.languages.cpp").clangd(on_attach_config)
-      require("lsp.languages.html").html(on_attach_config)
-      require("lsp.languages.css").cssls(on_attach_config)
-      require("lsp.languages.t-javascript").ts_ls(on_attach_config)
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      local servers = {
+        lua = "lua_ls_config",
+        python = "pyright_config",
+        java = "jdtls",
+        bash = "bashls",
+        cpp = "clangd",
+        html = "html",
+        css = "cssls",
+        ["t-javascript"] = "ts_ls"
+      }
+
+      for lang, config_fn in pairs(servers) do
+        local ok, lang_module = pcall(require, "lsp.languages." .. lang)
+        if ok and lang_module[config_fn] then
+          lang_module[config_fn](on_attach_config, capabilities)
+        else
+          vim.notify("No se pudo cargar: lsp.languages." .. lang, vim.log.levels.WARN)
+        end
+      end
 
       vim.diagnostic.config({
         virtual_text = true,
@@ -60,7 +73,11 @@ return {
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       "onsails/lspkind-nvim",
-      'windwp/nvim-autopairs'
+      'windwp/nvim-autopairs',
+      'chrisgrieser/cmp-nerdfont',
+      'JMarkin/cmp-diag-codes',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'ray-x/cmp-treesitter'
     },
     event = "VeryLazy",
     main = "lsp.cmp",
@@ -69,12 +86,13 @@ return {
   {
 	  "L3MON4D3/LuaSnip",
 	  version = "v2.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
     main = "lsp.luasnip",
-    config = true
+    config = true,
   },
   {
     "windwp/nvim-autopairs",
     lazy = true,
     config = true,
-  }
+  },
 }

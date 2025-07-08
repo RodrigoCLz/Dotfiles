@@ -13,13 +13,21 @@ function M.setup()
         luasnip.lsp_expand(args.body)
       end,
     },
+    completion = {
+      completeopt = 'menu,menuone,noinsert',
+      keyword_length = 2
+    },
     mapping = require("lsp.mappings").cmp_keys(cmp, luasnip),
     sources = {
       { name = "nvim_lua" },
       { name = "nvim_lsp" },
       { name = "path" },
       { name = "luasnip" },
-      { name = "buffer"}
+      { name = "buffer"},
+      { name = 'nerdfont'},
+      { name = 'diag-codes'},
+      { name = 'nvim_lsp_signature_help' },
+      { name = 'treesitter' }
     },
     formatting = {
       format = lspkind.cmp_format {

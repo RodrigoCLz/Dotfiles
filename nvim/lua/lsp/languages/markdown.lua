@@ -1,6 +1,7 @@
 local M = {}
-function M.html(on_attach_config, capabilities)
-  require("lspconfig").clangd.setup({
+
+function M.zk(on_attach_config, capabilities)
+  require("lspconfig").zk.setup({
     on_attach = on_attach_config,
     capabilities = capabilities
   })
