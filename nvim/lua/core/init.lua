@@ -4,7 +4,7 @@ require("core.mappings")
 vim.opt.clipboard = "unnamedplus"
 vim.opt.splitright = true
 vim.opt.termguicolors = true
-
+vim.opt.conceallevel = 2
 vim.wo.relativenumber = true
 vim.wo.number = true
 vim.opt.numberwidth = 4

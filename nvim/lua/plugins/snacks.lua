@@ -14,6 +14,7 @@ return {
     notifier     = { enabled = false },
     quickfile    = { enabled = true },
     scroll       = { enabled = true },
+    term = { enabled = false },
     statuscolumn = { enabled = true },
     words        = { enabled = true },
     scratch      = {

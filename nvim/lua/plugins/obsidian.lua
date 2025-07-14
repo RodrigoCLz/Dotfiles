@@ -13,5 +13,8 @@ return {
         path = "~/Obsidian/Zarun_dots/",
       },
     },
+    picker = {
+      name = "snacks.pick"
+    }
   },
 }

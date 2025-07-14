@@ -8,5 +8,6 @@ return {
   require("plugins.snacks"),
   require("plugins.aerial"),
   require("plugins.which_key"),
-  require("plugins.obsidian")
+  require("plugins.obsidian"),
+  require('plugins.toggleterm'),
 }
