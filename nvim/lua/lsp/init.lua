@@ -78,7 +78,9 @@ return {
       'chrisgrieser/cmp-nerdfont',
       'JMarkin/cmp-diag-codes',
       'hrsh7th/cmp-nvim-lsp-signature-help',
-      'ray-x/cmp-treesitter'
+      'ray-x/cmp-treesitter',
+      'hrsh7th/cmp-emoji',
+      'hrsh7th/cmp-omni'
     },
     event = "VeryLazy",
     main = "lsp.cmp",

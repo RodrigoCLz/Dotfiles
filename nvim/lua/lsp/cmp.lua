@@ -27,7 +27,9 @@ function M.setup()
       { name = 'nerdfont'},
       { name = 'diag-codes'},
       { name = 'nvim_lsp_signature_help' },
-      { name = 'treesitter' }
+      { name = 'treesitter' },
+      { name = 'emoji'},
+      { name = 'omni', option = { disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }}}
     },
     formatting = {
       format = lspkind.cmp_format {

@@ -23,3 +23,11 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.colorcolumn = "80"          -- Muestra una columna guía en la columna 80
 vim.opt.list = true
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.spell = true          -- habilita corrección ortográfica
+    vim.opt_local.spelllang = "es,en"   -- idiomas que usarás
+  end,
+})
