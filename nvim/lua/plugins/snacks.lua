@@ -9,7 +9,7 @@ return {
     dashboard    = { enabled = true },
     explorer     = { enabled = true },
     indent       = { enabled = true },
-    input        = { enabled = true },
+    input        = { enabled = false },
     picker       = { enabled = true , sources = { explorer = { layout = { layout = { position = "right"}}}}},
     notifier     = { enabled = false },
     quickfile    = { enabled = true },

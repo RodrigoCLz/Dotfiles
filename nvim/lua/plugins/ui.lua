@@ -38,7 +38,7 @@ return {
           {
             "filetype"
           }
-       },
+        },
         lualine_z = {
           {
             "fileformat",
@@ -86,6 +86,13 @@ return {
     event = "BufReadPre",
     opts = {
     },
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
   }
 }
 
