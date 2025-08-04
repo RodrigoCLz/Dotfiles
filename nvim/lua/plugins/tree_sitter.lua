@@ -3,12 +3,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup{
+      require("nvim-treesitter.configs").setup {
         ensure_installed = {
           "lua",
           "luadoc",
@@ -36,4 +36,3 @@ return {
     end
   },
 }
-
