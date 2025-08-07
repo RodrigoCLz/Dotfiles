@@ -9,7 +9,9 @@ vim.wo.relativenumber = true
 vim.wo.number = true
 vim.opt.numberwidth = 4
 vim.opt.signcolumn = "yes:1" -- siempre reserva una columna para signos
-
+vim.o.foldenable = false
+vim.o.foldlevelstart = 99
+vim.o.foldlevel = 99
 vim.opt.expandtab = true   -- Convierte tabs a espacios
 vim.opt.shiftwidth = 2     -- Número de espacios para auto-indentación
 vim.opt.smartindent = true

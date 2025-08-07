@@ -8,7 +8,7 @@ return {
     vim.o.timeoutlen = 300 -- Set the timeout length to 300 milliseconds
   end,
   opts = {
-    preset = "helix"
+    preset = "helix",
   },
   keys = {
     {

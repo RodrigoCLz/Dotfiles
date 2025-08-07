@@ -111,23 +111,6 @@ function M.snacks_picker()
     --{ "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
     { "<leader>.",  function() Snacks.scratch() end,                                        desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end,                                 desc = "Select Scratch Buffer" },
-    --{ "<leader>t", function () Snacks.terminal() end, desc = 'Toggle a terminal', mode = { 'n', 't'}},
-
---    {
---      "<leader>t",
---      function()
---        for _, win in ipairs(vim.api.nvim_list_wins()) do
---          local buf = vim.api.nvim_win_get_buf(win)
---          if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "terminal" then
---            vim.api.nvim_set_current_win(win)
---            return
---          end
---        end
---        Snacks.terminal()
---      end,
---      desc = 'Toggle a terminal',
---      mode = { 'n', 't' }
---    },
     { "<F5>", function()
       local ft = vim.bo.filetype
       local file = vim.fn.expand("%")
@@ -168,10 +151,8 @@ g++ "%s" -o "$DIR/%s.out" &&
       else
         vim.notify("No run config for filetype: " .. ft, vim.log.levels.WARN)
       end
-    end}
+    end }
   }
 end
 
 return M
-
-
