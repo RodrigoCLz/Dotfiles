@@ -10,4 +10,5 @@ return {
   require("plugins.which_key"),
   require("plugins.obsidian"),
   require('plugins.toggleterm'),
+  require('plugins.persistence')
 }
