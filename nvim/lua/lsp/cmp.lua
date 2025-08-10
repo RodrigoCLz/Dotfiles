@@ -29,6 +29,7 @@ function M.setup()
       { name = 'nvim_lsp_signature_help' },
       { name = 'treesitter' },
       { name = 'emoji'},
+      { name = 'render-markdown'},
       { name = 'omni', option = { disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }}}
     },
     formatting = {

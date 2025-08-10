@@ -11,5 +11,6 @@ return {
   require("plugins.obsidian"),
   require('plugins.toggleterm'),
   require('plugins.persistence'),
+  require('plugins.render-markdown')
 }
 
