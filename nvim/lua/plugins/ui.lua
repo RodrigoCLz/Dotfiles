@@ -15,7 +15,7 @@ return {
           },
           {
             "diff",
-            symbols = {added = ' ', modified = ' ', removed = ' '},
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
           },
           {
             "diagnostics",
@@ -78,6 +78,16 @@ return {
             ignore_lsp = {},
           }
         }
+      },
+      winbar = {
+        lualine_b = {
+          {
+            "navic",
+            color_correction = 'dynamic',
+            navic_opts = nil,
+            --color = { bg = 'transparent'}
+          }
+        },
       }
     }
   },
@@ -93,6 +103,42 @@ return {
     ---@module "ibl"
     ---@type ibl.config
     opts = {},
+  },
+  {
+    "SmiteshP/nvim-navic",
+    dependencies = "neovim/nvim-lspconfig",
+    opts = {
+      highlight = true, -- resalta cada parte con su grupo de LSP
+      separator = "  ", -- carácter entre niveles
+      depth_limit = 7, -- cuántos niveles mostrar como máximo
+      icons = {
+        File = ' ',
+        Module = ' ',
+        Namespace = ' ',
+        Package = ' ',
+        Class = ' ',
+        Method = ' ',
+        Property = ' ',
+        Field = ' ',
+        Constructor = ' ',
+        Enum = ' ',
+        Interface = ' ',
+        Function = ' ',
+        Variable = ' ',
+        Constant = ' ',
+        String = ' ',
+        Number = ' ',
+        Boolean = ' ',
+        Array = ' ',
+        Object = ' ',
+        Key = ' ',
+        Null = ' ',
+        EnumMember = ' ',
+        Struct = ' ',
+        Event = ' ',
+        Operator = ' ',
+        TypeParameter = ' '
+      }
+    }
   }
 }
-

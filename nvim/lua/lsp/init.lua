@@ -24,9 +24,13 @@ return {
     },
     config = function()
       require("lsp.mappings").default_keys()
-      local on_attach_config = function(_, bufnr)
+      local navic = require("nvim-navic")
+      local on_attach_config = function(client, bufnr)
         vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
         require("lsp.mappings").keys_on_attach()
+        if client.server_capabilities.documentSymbolProvider then
+          navic.attach(client, bufnr)
+        end
       end
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
