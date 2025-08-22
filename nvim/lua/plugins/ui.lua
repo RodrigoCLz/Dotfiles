@@ -98,9 +98,17 @@ return {
   {
     "catgoose/nvim-colorizer.lua",
     event = "BufReadPre",
-    opts = {
-    },
-  },
+    config = function ()
+      require('colorizer').setup({
+        user_default_options = {
+          names = false,
+          RRGGBBAA = true,
+          rgb_fn = true,
+          xtem = true
+        }
+      })
+    end
+  }
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
