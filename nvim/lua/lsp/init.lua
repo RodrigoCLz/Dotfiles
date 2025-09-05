@@ -44,7 +44,8 @@ return {
         html = "html",
         css = "cssls",
         ["t-javascript"] = "ts_ls",
-        markdown = "marksman"
+        markdown = "marksman",
+        json = "jsonls"
       }
 
       for lang, config_fn in pairs(servers) do
