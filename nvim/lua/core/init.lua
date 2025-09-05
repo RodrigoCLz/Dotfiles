@@ -23,9 +23,15 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
-vim.opt.colorcolumn = "80"          -- Muestra una columna guía en la columna 80
+vim.opt.colorcolumn = "80"          -- Muestra una columna guía en la columna 8
+
 vim.opt.list = true
 
+
+-- Ir al siguiente tab
+vim.keymap.set("n", "<C-Tab>", ":tabnext<CR>", { noremap = true, silent = true })
+-- Ir al tab anterior
+vim.keymap.set("n", "<C-S-Tab>", ":tabprevious<CR>", { noremap = true, silent = true })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
