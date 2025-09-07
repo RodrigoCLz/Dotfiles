@@ -32,6 +32,11 @@ vim.opt.list = true
 vim.keymap.set("n", "<C-Tab>", ":tabnext<CR>", { noremap = true, silent = true })
 -- Ir al tab anterior
 vim.keymap.set("n", "<C-S-Tab>", ":tabprevious<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Guardar archivo" })
+
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Cerrar buffer" })
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
