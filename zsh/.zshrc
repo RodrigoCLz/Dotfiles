@@ -1,6 +1,8 @@
 # Fix the Java Problem
 export _JAVA_AWT_WM_NONREPARENTING=1
+export TERM=xterm-256color
 export EDITOR=nvim
+export QT_QPA_PLATFORMTHEME=qt6ct
 # Enable Powerlevel10k instant prompt. Should stay at the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
