@@ -4,3 +4,4 @@ __pycache__/
 .luarc.json
 /quickshell/build/
 /quickshell/.qmlls.ini
+/hypr/hyprland.back.conf
