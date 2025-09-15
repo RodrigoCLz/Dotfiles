@@ -3,9 +3,9 @@ return {
     "mason-org/mason.nvim",
     build = ":MasonUpdate",
     lazy = false,
-      opts = {
-        PATH = "prepend",
-      },
+    opts = {
+      PATH = "prepend",
+    },
   },
   {
     "neovim/nvim-lspconfig",
@@ -17,7 +17,7 @@ return {
         ft = "lua",
         opts = {
           library = {
-          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
           },
         },
       },
@@ -45,7 +45,8 @@ return {
         css = "cssls",
         ["t-javascript"] = "ts_ls",
         markdown = "marksman",
-        json = "jsonls"
+        json = "jsonls",
+        qml = 'qmlls'
       }
 
       for lang, config_fn in pairs(servers) do
@@ -71,11 +72,11 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = {
       'neovim/nvim-lspconfig',
-      'hrsh7th/cmp-nvim-lsp',--conectar el lsp con el autocompletado
-      'hrsh7th/cmp-buffer',--contexto de archivos abiertos
-      'hrsh7th/cmp-path',--para los archivo 
-      'hrsh7th/cmp-cmdline',--para la linea de comandos
-      'petertriho/cmp-git',--para git
+      'hrsh7th/cmp-nvim-lsp', --conectar el lsp con el autocompletado
+      'hrsh7th/cmp-buffer',   --contexto de archivos abiertos
+      'hrsh7th/cmp-path',     --para los archivo
+      'hrsh7th/cmp-cmdline',  --para la linea de comandos
+      'petertriho/cmp-git',   --para git
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       "onsails/lspkind-nvim",
@@ -92,8 +93,8 @@ return {
     config = true
   },
   {
-	  "L3MON4D3/LuaSnip",
-	  version = "v2.*",
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
     dependencies = { "rafamadriz/friendly-snippets" },
     main = "lsp.luasnip",
     config = true,
@@ -103,4 +104,10 @@ return {
     lazy = true,
     config = true,
   },
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
+  }
 }

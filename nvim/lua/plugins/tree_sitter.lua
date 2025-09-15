@@ -17,6 +17,7 @@ return {
           "python",
           "c",
           "cpp",
+          "bash",
         },
         highlight = {
           enable = true,

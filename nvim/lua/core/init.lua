@@ -1,6 +1,7 @@
 require("core.mappings")
 --require("core.lazy")
 --Basic settings
+--vim.cmd("colorscheme onedark_vivid")
 vim.opt.clipboard = "unnamedplus"
 vim.opt.splitright = true
 vim.opt.termguicolors = true

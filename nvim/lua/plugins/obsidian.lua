@@ -10,7 +10,7 @@ return {
     workspaces = {
       {
         name = "Zarun_dots",
-        path = "~/Obsidian/Zarun_dots/",
+        path = "~/Obsidian/Zarun_dots/", "~/Obsidian/Ing Sistemas/",
       },
     },
     picker = {

@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    {import = "core.themes.onedark" },
+    {import = "core.themes" },
     {import = "lsp.init"},
     {import = "plugins.init"},
   },
